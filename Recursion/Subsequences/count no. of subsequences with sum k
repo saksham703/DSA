@@ -1,0 +1,38 @@
+// count no. of subsequences with sum k
+
+import java.util.*;
+public class Main {
+    
+    public static int subsets(int arr[],ArrayList<Integer>ds, int sum,int index,int k){
+      
+        if(sum > k)  return 0; // To reduce T.C
+       if (index==arr.length ){
+           if(sum == k){ 
+           return 1;
+           }
+           return 0;
+       }
+       
+       ds.add(arr[index]);
+        sum+=arr[index];
+      int left = subsets(arr,ds,sum,index+1,k);
+        sum = sum - arr[index];
+        ds.remove(ds.size()-1);
+        
+      int right = subsets(arr,ds,sum,index+1,k);
+      
+      return left+right;
+    }
+    
+    public static void main(String args[]){
+        int arr[] = {1,2,3};
+        int k=3;
+      ArrayList<Integer>ds= new ArrayList<Integer>(3);
+     int count =  subsets(arr,ds,0,0,k);
+     
+     System.out.println("Total no. of subsets with count k are: "+ count);
+    }
+}
+
+// Time Complexity: O(2^n) in the worst case (but may terminate early).
+// Space Complexity: O(n) (for recursive stack and ds).
