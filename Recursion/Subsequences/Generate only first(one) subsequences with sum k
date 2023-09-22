@@ -1,0 +1,72 @@
+// Generate only first(one) subsequences with sum k
+
+import java.util.*;
+public class Main {
+    static boolean flag = false;
+    public static void subsets(int arr[],ArrayList<Integer>ds, int sum,int index,int k){
+        
+       if (index==arr.length && sum == k  && flag == false){
+           flag = true;
+           System.out.println(ds);
+           return;
+       }
+       
+       if(index == arr.length){
+           return;
+       }
+       
+       ds.add(arr[index]);
+        sum+=arr[index];
+        subsets(arr,ds,sum,index+1,k);
+        sum = sum - arr[index];
+        ds.remove(ds.size()-1);
+        
+        subsets(arr,ds,sum,index+1,k);
+    }
+    
+    public static void main(String args[]){
+        int arr[] = {1,2,3};
+        int k=3;
+      ArrayList<Integer>ds= new ArrayList<Integer>(3);
+        subsets(arr,ds,0,0,k);
+    }
+}
+
+// Time Complexity: O(2^n) in the worst case (but may terminate early).
+// Space Complexity: O(n) (for recursive stack and ds).
+
+// OR //
+
+// Generate only one (first) subsequencea with sum k
+
+import java.util.*;
+public class Main {
+    
+    public static boolean subsets(int arr[],ArrayList<Integer>ds, int sum,int index,int k){
+        
+       if (index==arr.length ){
+           if(sum == k){
+           System.out.println(ds);
+           return true;
+           }
+           return false;
+       }
+       
+       ds.add(arr[index]);
+        sum+=arr[index];
+       if(subsets(arr,ds,sum,index+1,k)== true)  return true;
+        sum = sum - arr[index];
+        ds.remove(ds.size()-1);
+        
+      if(subsets(arr,ds,sum,index+1,k)== true)  return true;
+      
+      return false;
+    }
+    
+    public static void main(String args[]){
+        int arr[] = {1,2,3};
+        int k=3;
+      ArrayList<Integer>ds= new ArrayList<Integer>(3);
+        subsets(arr,ds,0,0,k);
+    }
+}
