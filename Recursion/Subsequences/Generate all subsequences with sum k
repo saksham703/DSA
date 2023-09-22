@@ -1,0 +1,42 @@
+// Generate all subsequencea with sum k
+import java.util.*;
+public class Main {
+    public static void subsets(int arr[],    List<Integer>ds,  List<List<Integer>>ds2, int sum,int index,int k){
+        
+       if (index==arr.length && sum == k){
+           ds2.add(new ArrayList<>(ds));
+           return;
+       }
+       
+       if(index == arr.length){
+           return;
+       }
+       
+       ds.add(arr[index]);
+        sum+=arr[index];
+        subsets(arr,ds,ds2,sum,index+1,k);
+        sum = sum - arr[index];
+        ds.remove(ds.size()-1);
+        
+        subsets(arr,ds,ds2,sum,index+1,k);
+    }
+    
+    public static void main(String args[]){
+        int arr[] = {1,2,3};
+        int k=3;
+      List<Integer>ds= new ArrayList<>();
+List<List<Integer>>ds2 = new ArrayList<>();
+        subsets(arr,ds,ds2,0,0,k);
+        // iterate    
+    for(List<Integer> ds1 : ds2 ){
+        for(int item : ds1){
+            System.out.print(item+" ");
+        }
+        System.out.println();
+    }
+    }
+}
+
+
+// Time Complexity: O(2^n)
+// Space Complexity: O(n) (for recursive stack and ds) + O(2^n) (for ds2) in the worst case.
