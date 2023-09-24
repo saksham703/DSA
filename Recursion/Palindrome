@@ -1,0 +1,17 @@
+// Check if an Array/String is Palindrome
+
+public class Main {
+	public static boolean Palindrome(String str,int i, int n){
+	    if(i==n || i>n) return true;
+	     
+	     if(str.charAt(i) != str.charAt(n)) return false;
+	     
+	     return Palindrome(str,i+1,n-1);
+	}
+	public static void main(String[] args) {
+		String  str = "ABCDCBA";
+		System.out.println(Palindrome(str,0,str.length()-1));
+	}
+}
+
+// T.C:- O(n), S.C:-O(n)
