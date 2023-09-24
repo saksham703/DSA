@@ -1,0 +1,36 @@
+//Given two positive integers n and k, print all increasing sequences of length k such that the elements in every sequence are from the first n natural numbers.
+/*Input: k = 3, n = 5
+Output:
+        1 2 3
+        1 2 4
+        1 2 5
+        1 3 4
+        1 3 5
+        1 4 5
+        2 3 4
+        2 3 5
+        2 4 5
+        3 4 5
+        */
+        
+import java.util.*;
+public class Main{
+   static void subsequence(int n,int k,String S,int i){
+      if(i==n+1 && S.length()==k){
+       System.out.println(S);
+       return;
+      }
+      if(i>n+1) return;
+      
+      subsequence(n,k,S+i,i+1);
+      subsequence(n,k,S,i+1);
+        
+    }
+    public static void main(String args[]){
+        int n = 5;
+        int k = 3;
+  subsequence(n,k,"",1);     
+    }
+ }        
+
+// T.C:- O(2^n) , S.C:-  O(N)
