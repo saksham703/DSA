@@ -1,0 +1,25 @@
+// Print all n-digit strictly increasing numbers
+
+public class Main {
+public static void printNnumbers(int n,int k,int i,String num){
+	 if(num.length() == n && i==k+1){
+	     System.out.println(num);
+	     return;
+	     }  
+	      
+	 if(i>10) return;
+	 
+	printNnumbers(n,k,i+1,num+i);
+	printNnumbers(n,k,i+1,num);
+		
+	}
+	
+	public static void main(String[] args) {
+		int n= 3;
+		int k = 9;
+		printNnumbers(n,k,0,"");
+		
+	}
+}
+
+//T.C :- O(2^n) & S.C:- O(n)
