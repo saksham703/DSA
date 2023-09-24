@@ -1,0 +1,35 @@
+// Permutations of an array/string
+import java.util.*;
+public class Main{
+    public static void permutations(String str,String ds,int check[],List<String> out){
+        if(ds.length() == str.length()){
+            out.add(new String(ds));      
+            return;
+        }
+        
+        for(int i=0;i<str.length();i++){
+            if(check[i] == -1){
+             check[i] = i;
+             ds  = ds + str.charAt(i);
+             permutations(str,ds,check,out);
+        ds = ds.substring(0, ds.length() - 1);                
+            check[i] =-1;   
+           }
+      }          
+    }
+    
+    public static void main(String args[]){
+        String str = "ABC";
+ 	 int check[]= new int[str.length()];
+        Arrays.fill(check, -1);	 
+   List<String>out = new ArrayList<>();
+       permutations(str,"",check,out);
+       
+       for(String item : out ){
+           System.out.println(item);
+       }
+    }
+}
+
+
+// T.C :-  O(n!) , S.C :- O(n)+O(n!)
