@@ -1,0 +1,37 @@
+// Permutations of an array/string
+import java.util.*;
+public class Main{
+public static void  permutation(String str,int ind, List<String>out){
+        
+        if(ind == str.length()){
+       out.add(new String(str));      
+            return;
+        }
+        
+        for(int i = ind;i<str.length();i++){
+            str = swap(str,ind,i);
+             permutation(str,ind+1,out);
+            str = swap(str,ind,i);      
+        }
+    }
+    public static String swap(String str,int ind,int i){
+        char temp;
+        char[] charArray = str.toCharArray();
+        temp = charArray[ind];
+        charArray[ind] = charArray[i];
+        charArray[i] = temp;
+        return String.valueOf(charArray);
+    }
+    public static void main(String args[]){
+        String str = "ABC";
+    List<String>out = new ArrayList<>();
+        permutation(str,0,out);
+    for(String item : out){
+        System.out.println(item);
+    }
+    }
+}
+
+
+// T.C :-  O(n!) , S.C :- O(n)+O(n!)
+
