@@ -1,0 +1,36 @@
+// Combination Sum – 1
+
+import java.util.*;
+
+public class Main {
+static void combinationSum1(int[] arr,List<List<Integer>>ds2,List<Integer>ds1,int target,int i){
+	 if(i== arr.length && target==0){
+	  ds2.add(new ArrayList<>(ds1));
+	  return;
+	 }
+	 if(i>=arr.length) return;
+	    
+	    if(arr[i]<=target){
+	        ds1.add(arr[i]);
+combinationSum1(arr,ds2,ds1,target-arr[i],i); 
+           ds1.remove(ds1.size()-1);
+  }
+ combinationSum1(arr,ds2,ds1,target,i+1);
+	}
+public static void main(String[] args) {
+		int[] arr = {2,3,6,7};
+	  int target = 7;
+List<List<Integer>>ds2 = new ArrayList<>();
+List<Integer>ds1 = new ArrayList<>();
+   combinationSum1(arr,ds2,ds1,target,0);
+   
+   for(List<Integer> values : ds2){
+       for(int num : values){
+           System.out.print(num + "  ");
+       }
+       System.out.println();
+   }
+	}
+}
+
+// T.C:- O(2^n), S.C:- O(N) + O(2^n)
