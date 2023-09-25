@@ -1,0 +1,30 @@
+// Print all possible combinations of r elements in a given array of size n
+//For example, if input array is {1, 2, 3, 4} and r is 2, then output should be {1, 2}, {1, 3}, {1, 4}, {2, 3}, {2, 4} and {3, 4}
+import java.util.*;
+public class Main {
+static void combinations(int arr[],List<Integer>ds1,List<List<Integer>>ds2,int r,int i){
+	if(i==arr.length && ds1.size()==r){
+	  ds2.add(new ArrayList<>(ds1));
+	  return;
+	}
+	if(i>=arr.length) return;
+	
+	ds1.add(arr[i]);
+	combinations(arr,ds1,ds2,r,i+1);  
+	ds1.remove(ds1.size()-1);
+	combinations(arr,ds1,ds2,r,i+1);    
+	}
+	public static void main(String[] args) {
+		int arr[] = {1,2,3,4};
+		int r=2;
+List<List<Integer>>ds2  = new ArrayList<>();
+List<Integer>ds1 = new ArrayList<>();
+	combinations(arr,ds1,ds2,r,0);
+	// printing ds2
+	for(List<Integer> item : ds2){
+	    System.out.println(item);
+	}
+	}
+}
+
+// T.C:- O(2^n) , S.C:- O(n)
