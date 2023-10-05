@@ -1,0 +1,33 @@
+// generate distinct subsequences without duplicates
+// Picking pattern with steps
+
+import java.util.*;
+public class Main {
+	static void subSeq(String s, String out, int ind) {
+		if (ind == s.length()) {
+			System.out.println(out);
+			return;
+		} else {
+			System.out.println(out);
+		}
+
+
+		for (int i = ind; i < s.length(); i++) {
+		 if(i  != ind && s.charAt(i) == s.charAt(i - 1)) {
+				continue;
+			}
+			
+			subSeq(s, out + s.charAt(i), i + 1);
+
+		}
+	}
+	public static void main(String args[]) {
+		String s = "12223";
+		subSeq(s, "", 0);
+	}
+}
+
+// T.C: O(2^n)
+
+// like 122223, we will only take the 1st 2 & skip all the other 2's. (cause for the 1st 2 it will handel all the cases of pick/non-pick).  //ly for 1, we will pick only the first 2 & skip all others. 
+// for 123456789, for 4 : phele 4 se 5 pick hoga , phir remove hoga , phir next 6 hoga , phir remove hoga , && so on.
