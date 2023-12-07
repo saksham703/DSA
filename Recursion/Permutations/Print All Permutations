@@ -14,6 +14,12 @@ public class Main{
              permutations(str,ds,check,out);
         ds = ds.substring(0, ds.length() - 1);                
             check[i] =-1;   
+
+//     Skip duplicate characters
+            while(i < str.length()-1 && str.charAt(i) == str.charAt(i +1)) {
+                    i++;
+              }        
+
            }
       }          
     }
