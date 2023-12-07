@@ -11,7 +11,12 @@ public static void  permutation(String str,int ind, List<String>out){
         for(int i = ind;i<str.length();i++){
             str = swap(str,ind,i);
              permutation(str,ind+1,out);
-            str = swap(str,ind,i);      
+            str = swap(str,ind,i);  
+
+//     Skip duplicate characters
+            while(i < str.length()-1 && str.charAt(i) == str.charAt(i +1)) {
+                    i++;
+              }        
         }
     }
     public static String swap(String str,int ind,int i){
