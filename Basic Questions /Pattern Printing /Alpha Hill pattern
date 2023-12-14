@@ -1,0 +1,21 @@
+// https://takeuforward.org/pattern/pattern-17-alpha-hill-pattern/
+
+public class Main {
+	public static void main(String[] args) {
+  int N = 6;
+  for(int row = 1; row <=6;row++){
+    for(int dashes=1; dashes<=(N-row);dashes++){
+        System.out.print(" ");
+  }
+  for(int ch = 0; ch <= row-1;ch++){
+      char character = (char)('A'+ch);
+      System.out.print(character);
+  }
+for(int ich = row-2; ich >= 0; ich--){
+    char invertedCharacter = (char)('A'+ich);
+   System.out.print(invertedCharacter);
+}
+         System.out.println();
+  }
+	}
+}
