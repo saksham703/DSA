@@ -1,0 +1,38 @@
+// Minimum insertions to make a string palindrome
+
+// Solution:- str = "abcca". If str[i] = str[j], i-- & j--. If(str[i] != str[j]) -> non-equal case, it means we have to insert one character to balance it. For eg:-  In, abcca, str[1] != str[3], so it balance it out we have to either insert a c before b (acbcca) or a b after c (abccba). ie: we have to take min of 1+ Min[f(str,i+1,j),f(str,i,j-1)].
+
+/* TC:- O(2^n) , SC:- O(N).
+** If unable to understand, make stack for abcca.
+*/
+
+import java.util.*;
+
+public class Main {	
+    public static int minInsertionHelper(String str, int start, int end) {
+        if (start >= end) {
+            return 0;
+        }
+
+        int ans = 0;
+        // Recursively call the helper functions.
+        if (str.charAt(start) == str.charAt(end)) {
+            ans = minInsertionHelper(str, start + 1, end - 1);
+        }
+        else {
+            int a =1+ minInsertionHelper(str, start + 1, end);
+            int b =1+ minInsertionHelper(str, start, end - 1);
+
+            ans = Math.min(a, b);
+        }
+
+        return ans;
+    }
+	public static void main(String[] args) {
+		String str = "abcdefg";
+        int n = str.length();
+
+       int ans =minInsertionHelper(str, 0, n - 1);
+      System.out.println(ans);
+	}
+}
