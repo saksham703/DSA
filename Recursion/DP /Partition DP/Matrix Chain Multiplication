@@ -1,0 +1,63 @@
+// Question:- Matrix Chain ⛓️ Multiplication (MCM). a[5] = {10,20,30,40,50}, matrix1-> 10*20, m2->20*30,ith matrix->a[i]*a[i-1];
+//Solution:- pattern:- partiton pattern +  Recursion. Make partitions in the array. Make a pointer i at a[1], j at a[n-1]. Now, iterate from k:i->j-1 & make 2 partitions: f(i,k) & f(k+1,j). so, basically we are partitoning the array into 2 parts, through recursion the 2 parts will be further partitioned into different parts & so on. When you partition an array into f(i,k) & f(k+1,j),  you have to find the number of operations, when these partitions multiply with each other. Eg:- A=10*20,B=20*30&C=30*40, If we partition at A(cut array at 20), we have A & BC, A = 10*20 & BC=20*40. Therefore, total no. of operations will be 10*20*40.  ie:- a[i-1]*a[k](cut/common)*a[j].
+//The no. of operations will be a[i-1]* a[k]*a[j]. Therefore, the function call for a particular partition will be f(i,k) + f(k+1,j) + a[i-1]* a[k]*a[j]. We need to minimise the result, so we take ans from that partition that gives us the least no. of operations. BC will be when (i==j) -> it means we are interested in a single matrix and no operation is required to multiply it so we return 0.
+//Statement(english):- Therefore, we have partions & we have f() call to further break down these partions & cal min operations.
+// OW:- cuts, Multiplication of cuts
+// T.C:- Exponential, every time array gets divided into k partitions. Therefore its nearly about O()
+
+
+
+import java.util.*;
+
+class TUF{
+static int f(int arr[], int i, int j, int[][] dp){
+    
+    // base condition
+    if(i == j)
+        return 0;
+        
+    if(dp[i][j]!=-1)
+        return dp[i][j];
+    
+    int mini = Integer.MAX_VALUE;
+    
+    // partioning loop
+    for(int k = i; k<= j-1; k++){
+        
+    int ans = f(arr,i,k,dp) + f(arr, k+1,j,dp) + arr[i-1]*arr[k]*arr[j];
+        
+    mini = Math.min(mini,ans);
+        
+    }
+    
+    return mini;
+}
+
+
+static int matrixMultiplication(int[] arr, int N){
+    
+    int dp[][]= new int[N][N];
+    
+    for(int row[]:dp)
+    Arrays.fill(row,-1);
+    
+    int i =1;
+    int j = N-1;
+    
+    
+    return f(arr,i,j,dp);
+    
+    
+}
+
+public static void main(String args[]) {
+	
+	int arr[] = {10, 20, 30, 40, 50};
+	
+	int n = arr.length;
+	
+	System.out.println("The minimum number of operations are "+
+        matrixMultiplication(arr,n));
+	
+}
+}
