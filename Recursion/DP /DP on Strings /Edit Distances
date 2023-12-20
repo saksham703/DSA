@@ -1,0 +1,56 @@
+// Edit distances 
+
+//eg:- horse->ros
+//Solution:- pattern:- equal/not equal,
+//If str1[n-1]==str2[m-1], then move to next element by f(n-1,m-1,s1,s2), If elements are not equal, then you have 3 choices:- you can either insert, remove or replace them. For insertion, to make horse->ros, insert  s to horse make it horses & now  compare it to ros(since they are equal the problem will reduce to horse,ro), therefore for insertion-> f(n,m-1,s1,s2), For deletion-> f(n-1,m,s1,s2) & For replacement-> f(n-1,m-1,s1,s2). Return min of these 3 operations for non-equal elements.
+//TC: O(3^N*M), SC: O(N+M) 
+
+
+import java.util.*;
+
+class TUF {
+    // Function to calculate the minimum edit distance between two strings
+    static int editDistanceUtil(String S1, String S2, int n, int m, int[][] dp) {
+        // Base cases
+        
+// if we dont have any elements in s1 & we want to make it as s2, then we have to add all the elements of s2 to s1(ie add m elements to s1).
+
+        if (n == 0)
+            return m;
+            
+// when length of s2 is 0 & we want to make s1 = s2, so we have to delete all the elements of s1(ie delete n elements from s1).
+        if (m == 0)
+            return n;
+
+        // If the result is already computed, return it
+        if (dp[n][m] != -1)
+            return dp[n][m];
+
+        // If the characters at the current positions match, no edit is needed
+        if (S1.charAt(n-1) == S2.charAt(m-1))
+            return dp[n][m] = editDistanceUtil(S1, S2, n - 1, m- 1, dp);
+
+        // Minimum of three choices:
+        // 1. Replace the character in S1 with the character in S2.
+        // 2. Delete the character in S1.
+        // 3. Insert the character from S2 into S1.
+        else
+            return dp[n][m] = 1 + Math.min(editDistanceUtil(S1, S2, n - 1, m- 1, dp),Math.min(editDistanceUtil(S1, S2, n- 1, m, dp), editDistanceUtil(S1, S2, n, m - 1, dp)));
+    }
+    
+    public static void main(String args[]) {
+        String s1 = "horse";
+        String s2 = "ros";
+        int n = s1.length();
+        int m = s2.length();
+
+        int[][] dp = new int[n+1][m+1];
+        for (int row[] : dp)
+            Arrays.fill(row, -1);
+
+        // Call the recursive helper function             
+        System.out.println("The minimum number of operations required is: " +
+                editDistanceUtil(s1, s2, n, m, dp));
+    }
+}
+
