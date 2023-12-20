@@ -1,0 +1,41 @@
+// Maximum sum of non-adjacent elements
+// OW:-  Pick/Non-Pick
+
+import java.util.*;
+
+public class Main {
+    static int solveUtil(int ind, int[] arr, int[] dp) {
+       
+        if (ind < 0) return 0;
+              
+        if (ind == 0) return 0;
+        
+        if (dp[ind] != -1) return dp[ind];
+        
+        // Calculate the maximum sum by either picking the current element or not picking it.
+        
+        int pick = 0, nonPick = 0;
+         pick = arr[ind-1] + solveUtil(ind - 2, arr, dp);
+        nonPick = solveUtil(ind - 1, arr, dp);
+        
+        // Store the maximum of the two options in the dp array for future reference.
+        return dp[ind] = Math.max(pick, nonPick);
+    }
+
+    public static void main(String args[]) {
+       
+        int arr[] = {2, 1, 4, 9};
+        
+      
+        int n = arr.length;
+        
+        int dp[] = new int[n+1];
+        
+        Arrays.fill(dp, -1);
+        
+        
+        int ans = solveUtil(n , arr, dp);
+     
+        System.out.println(ans);
+    }
+}
