@@ -1,0 +1,59 @@
+// Print the Longest Common Subsequence (LCS)
+// TC:- O(2^m+n).
+
+import java.util.*;
+
+class TUF {
+   
+    static String lcsUtil(String s1, String s2, int ind1, int ind2, String[][] dp) {
+     
+        if (ind1 <0 || ind2 < 0)  return "";
+            
+        if(ind1 == 0 || ind2 == 0) return "";
+
+        if (dp[ind1][ind2] != "")
+            return dp[ind1][ind2];
+
+        // If the characters at the current indices are the same, increment the LCS length
+        if (s1.charAt(ind1-1) == s2.charAt(ind2-1))
+            return dp[ind1][ind2] = s1.charAt(ind1-1) + lcsUtil(s1, s2, ind1 - 1, ind2 - 1, dp);
+
+        // If the characters are different, choose the maximum LCS length by either
+        // skipping a character in s1 or skipping a character in s2
+        else {
+        
+        String option1= "" ;
+        String option2 = "";
+        
+   option1 = lcsUtil(s1, s2, ind1, ind2 - 1, dp);
+   option2 = lcsUtil(s1, s2, ind1 - 1, ind2, dp);
+   
+   if(option1.length() > option2.length()){
+       return dp[ind1][ind2] = option1;
+   }
+   else return dp[ind1][ind2] = option2;
+   
+        }
+    }
+
+ 
+    public static void main(String args[]) {
+        String s1 = "acd";
+        String s2 = "ced";
+        
+        int n = s1.length();
+        int m = s2.length();
+     
+        String dp[][] = new String[n+1][m+1];
+
+        for (String rows[] : dp)
+            Arrays.fill(rows, "");
+            
+    String ans =  lcsUtil(s1,s2,n,m,dp);
+ StringBuilder sb=new StringBuilder(ans);  
+    sb.reverse();  
+    String ans2 = sb.toString();  
+    
+        System.out.println("The Longest Common Subsequence is " + ans2);
+    }
+}
